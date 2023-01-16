@@ -1,1 +1,234 @@
-var DataSave=function(){var e=this;this.totalStorage=void 0,this.usedStorage=void 0,navigator.storage.estimate().then(function(t){e.totalStorage=t.quota}),navigator.storage.estimate().then(function(t){e.usedStorage=t.usage}),this.newStorage=function(e,t,o,n){return new Promise(function(a,d){var s=indexedDB.open(e,t);s.onupgradeneeded=function(){var e=s.result;for(var t in o)void 0==o[t].delete||!1==o[t].delete?e.createObjectStore(o[t].name,{keyPath:void 0==o[t].key?"id":o[t].key,autoIncrement:void 0!=o[t].increment&&!1!=o[t].increment}):!0==o[t].delete&&e.deleteObjectStore(o[t].name)},s.onsuccess=function(){for(var e=[],t=s.result,o=0;o<n.length;o++)for(var d=0;d<n[o].methods.length;d++)"add"==n[o].methods[d].type||"new"==n[o].methods[d].type?void 0==n[o].methods[d].name?(t.transaction(n[o].name,"readwrite").objectStore(n[o].name).add({value:n[o].methods[d].value}),o==n.length&&d==n[o-1].methods.length&&a(e==[]?void 0:e)):(t.transaction(n[o].name,"readwrite").objectStore(n[o].name).add({[void 0==n[o].key?"id":n[o].key]:n[o].methods[d].name,value:n[o].methods[d].value}),o==n.length&&d==n[o-1].methods.length&&a(e==[]?void 0:e)):"put"==n[o].methods[d].type||"update"==n[o].methods[d].type||"edit"==n[o].methods[d].type||"write"==n[o].methods[d].type?void 0==n[o].methods[d].name?(t.transaction(n[o].name,"readwrite").objectStore(n[o].name).put({value:n[o].methods[d].value}),o==n.length&&d==n[o-1].methods.length&&a(e==[]?void 0:e)):(t.transaction(n[o].name,"readwrite").objectStore(n[o].name).put({[void 0==n[o].key?"id":n[o].key]:n[o].methods[d].name,value:n[o].methods[d].value}),o==n.length&&d==n[o-1].methods.length&&a(e==[]?void 0:e)):"get"==n[o].methods[d].type||"read"==n[o].methods[d].type?t.transaction(n[o].name,"readwrite").objectStore(n[o].name).get(n[o].methods[d].name).onsuccess=function(){e.push({type:"get",value:this.result.value}),o==n.length&&d==n[o-1].methods.length&&a(e==[]?void 0:e)}:"getAll"==n[o].methods[d].type||"readAll"==n[o].methods[d].type?t.transaction(n[o].name,"readwrite").objectStore(n[o].name).getAll().onsuccess=function(){e.push({type:"getAll",value:this.result}),o==n.length&&d==n[o-1].methods.length&&a(e==[]?void 0:e)}:"delete"==n[o].methods[d].type||"remove"==n[o].methods[d].type?(t.transaction(n[o].name,"readwrite").objectStore(n[o].name).delete(n[o].methods[d].name),a(e==[]?void 0:e)):"clear"==n[o].methods[d].type?(t.transaction(n[o].name,"readwrite").objectStore(n[o].name).clear(),a(e==[]?void 0:e)):"count"==n[o].methods[d].type&&(t.transaction(n[o].name,"readwrite").objectStore(n[o].name).count().onsuccess=function(){e.push({type:"count",value:this.result}),o==n.length&&d==n[o-1].methods.length&&a(e==[]?void 0:e)})}})},this.openStorage=function(e,t){return new Promise(function(o,n){var a=indexedDB.open(e);a.onsuccess=function(){for(var e=[],n=a.result,d=0;d<t.length;d++)for(var s=0;s<t[d].methods.length;s++)"add"==t[d].methods[s].type||"new"==t[d].methods[s].type?void 0==t[d].methods[s].name?(n.transaction(t[d].name,"readwrite").objectStore(t[d].name).add({value:t[d].methods[s].value}),d==t.length&&s==t[d-1].methods.length&&o(e==[]?void 0:e)):(n.transaction(t[d].name,"readwrite").objectStore(t[d].name).add({[void 0==t[d].key?"id":t[d].key]:t[d].methods[s].name,value:t[d].methods[s].value}),d==t.length&&s==t[d-1].methods.length&&o(e==[]?void 0:e)):"put"==t[d].methods[s].type||"update"==t[d].methods[s].type||"edit"==t[d].methods[s].type||"write"==t[d].methods[s].type?void 0==t[d].methods[s].name?(n.transaction(t[d].name,"readwrite").objectStore(t[d].name).put({value:t[d].methods[s].value}),d==t.length&&s==t[d-1].methods.length&&o(e==[]?void 0:e)):(n.transaction(t[d].name,"readwrite").objectStore(t[d].name).put({[void 0==t[d].key?"id":t[d].key]:t[d].methods[s].name,value:t[d].methods[s].value}),d==t.length&&s==t[d-1].methods.length&&o(e==[]?void 0:e)):"get"==t[d].methods[s].type||"read"==t[d].methods[s].type?n.transaction(t[d].name,"readwrite").objectStore(t[d].name).get(t[d].methods[s].name).onsuccess=function(){e.push({type:"get",value:this.result.value}),d==t.length&&s==t[d-1].methods.length&&o(e==[]?void 0:e)}:"getAll"==t[d].methods[s].type||"readAll"==t[d].methods[s].type?n.transaction(t[d].name,"readwrite").objectStore(t[d].name).getAll().onsuccess=function(){e.push({type:"getAll",value:this.result}),d==t.length&&s==t[d-1].methods.length&&o(e==[]?void 0:e)}:"delete"==t[d].methods[s].type||"remove"==t[d].methods[s].type?(n.transaction(t[d].name,"readwrite").objectStore(t[d].name).delete(t[d].methods[s].name),o(e==[]?void 0:e)):"clear"==t[d].methods[s].type?(n.transaction(t[d].name,"readwrite").objectStore(t[d].name).clear(),o(e==[]?void 0:e)):"count"==t[d].methods[s].type&&(n.transaction(t[d].name,"readwrite").objectStore(t[d].name).count().onsuccess=function(){e.push({type:"count",value:this.result}),d==t.length&&s==t[d-1].methods.length&&o(e==[]?void 0:e)})}})},this.deleteStorage=function(e){indexedDB.deleteDatabase(e)}};
+var DataSave = function(){
+    var mainObject = this;
+    this.totalStorage = undefined;
+    this.usedStorage = undefined;
+    navigator.storage.estimate().then(function(result){mainObject.totalStorage = result.quota});
+    navigator.storage.estimate().then(function(result){mainObject.usedStorage = result.usage});
+    this.newStorage = function(name,version,setup,handle){
+        return new Promise(function(resolve,reject){
+            var request = indexedDB.open(name,version);
+            request.onupgradeneeded = function(){
+                var storage = request.result;
+                for(var index in setup){
+                    if(setup[index].delete == undefined || setup[index].delete == false){
+                        storage.createObjectStore(setup[index].name,{
+                            keyPath:setup[index].key == undefined ? "id" : setup[index].key,
+                            autoIncrement:setup[index].increment == undefined || setup[index].increment == false ? false : true,
+                        });
+                    }else if(setup[index].delete == true){
+                        storage.deleteObjectStore(setup[index].name);
+                    }
+                }
+            }
+            request.onsuccess = function(){
+                var returnedValues = [];
+                var storage = request.result;
+                for(var index01 = 0;index01 < handle.length;index01++){
+                    for(var index02 = 0;index02 < handle[index01].methods.length;index02++){
+                        if(handle[index01].methods[index02].type == "add" || handle[index01].methods[index02].type == "new"){
+                            if(handle[index01].methods[index02].name == undefined){
+                                storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).add({value:handle[index01].methods[index02].value});
+                                if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                    resolve(returnedValues == [] ? undefined : returnedValues);
+                                }
+                            }else{
+                                storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).add({
+                                    [handle[index01].key == undefined ? "id" : handle[index01].key]:handle[index01].methods[index02].name,
+                                    value:handle[index01].methods[index02].value,
+                                });
+                                if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                    resolve(returnedValues == [] ? undefined : returnedValues);
+                                }
+                            }
+                        }else if(handle[index01].methods[index02].type == "put" || handle[index01].methods[index02].type == "update" || handle[index01].methods[index02].type == "edit"
+                        || handle[index01].methods[index02].type == "write"){
+                            if(handle[index01].methods[index02].name == undefined){
+                                storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).put({value:handle[index01].methods[index02].value});
+                                if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                    resolve(returnedValues == [] ? undefined : returnedValues);
+                                }
+                            }else{
+                                storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).put({
+                                    [handle[index01].key == undefined ? "id" : handle[index01].key]:handle[index01].methods[index02].name,
+                                    value:handle[index01].methods[index02].value,
+                                });
+                                if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                    resolve(returnedValues == [] ? undefined : returnedValues);
+                                }
+                            }
+                        }else if(handle[index01].methods[index02].type == "get" || handle[index01].methods[index02].type == "read"){
+                            storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name)
+                                .get(handle[index01].methods[index02].name).onsuccess = function(){
+                                    if(this.result == undefined){
+                                        returnedValues.push({type:"get",value:undefined});
+                                        if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                            resolve(returnedValues == [] ? undefined : returnedValues);
+                                        }
+                                    }else{
+                                        returnedValues.push({type:"get",value:this.result.value});
+                                        if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                            resolve(returnedValues == [] ? undefined : returnedValues);
+                                        }
+                                    }
+                            }
+                        }else if(handle[index01].methods[index02].type == "exist"){
+                            if(handle[index01].methods[index02].name == undefined){
+                                returnedValues.push({type:"existObject",value:storage.objectStoreNames.contains(handle[index01].name)});
+                                if(index01 == handle.length-1 && index02 == handle[index01].methods.length-1){
+                                    resolve(returnedValues == [] ? undefined : returnedValues);
+                                }
+                            }else{
+                                storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name)
+                                .get(handle[index01].methods[index02].name).onsuccess = function(){
+                                    if(this.result == undefined){
+                                        returnedValues.push({type:"existValue",value:false});
+                                        if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                            resolve(returnedValues == [] ? undefined : returnedValues);
+                                        }
+                                    }else{
+                                        returnedValues.push({type:"existValue",value:true});
+                                        if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                            resolve(returnedValues == [] ? undefined : returnedValues);
+                                        }
+                                    }
+                                };
+                            }
+                        }else if(handle[index01].methods[index02].type == "getAll" || handle[index01].methods[index02].type == "readAll"){
+                            storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name)
+                                .getAll().onsuccess = function(){
+                                    returnedValues.push({type:"getAll",value:this.result});
+                                    if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                        resolve(returnedValues == [] ? undefined : returnedValues);
+                                    }
+                            };
+                        }else if(handle[index01].methods[index02].type == "delete" || handle[index01].methods[index02].type == "remove"){
+                            storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).delete(handle[index01].methods[index02].name);
+                            resolve(returnedValues == [] ? undefined : returnedValues);
+                        }else if(handle[index01].methods[index02].type == "clear"){
+                            storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).clear();
+                            resolve(returnedValues == [] ? undefined : returnedValues);
+                        }else if(handle[index01].methods[index02].type == "count"){
+                            storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name)
+                                .count().onsuccess = function(){
+                                    returnedValues.push({type:"count",value:this.result});
+                                    if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                        resolve(returnedValues == [] ? undefined : returnedValues);
+                                    }
+                            };
+                        }
+                    }
+                }
+            }
+        });
+    }
+    this.openStorage = function(name,handle){
+        return new Promise(function(resolve,reject){
+            var request = indexedDB.open(name);
+            request.onsuccess = function(){
+                var returnedValues = [];
+                var storage = request.result;
+                for(var index01 = 0;index01 < handle.length;index01++){
+                    for(var index02 = 0;index02 < handle[index01].methods.length;index02++){
+                        if(handle[index01].methods[index02].type == "add" || handle[index01].methods[index02].type == "new"){
+                            if(handle[index01].methods[index02].name == undefined){
+                                storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).add({value:handle[index01].methods[index02].value});
+                                if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                    resolve(returnedValues == [] ? undefined : returnedValues);
+                                }
+                            }else{
+                                storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).add({
+                                    [handle[index01].key == undefined ? "id" : handle[index01].key]:handle[index01].methods[index02].name,
+                                    value:handle[index01].methods[index02].value,
+                                });
+                                if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                    resolve(returnedValues == [] ? undefined : returnedValues);
+                                }
+                            }
+                        }else if(handle[index01].methods[index02].type == "put" || handle[index01].methods[index02].type == "update" || handle[index01].methods[index02].type == "edit"
+                        || handle[index01].methods[index02].type == "write"){
+                            if(handle[index01].methods[index02].name == undefined){
+                                storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).put({value:handle[index01].methods[index02].value});
+                                if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                    resolve(returnedValues == [] ? undefined : returnedValues);
+                                }
+                            }else{
+                                storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).put({
+                                    [handle[index01].key == undefined ? "id" : handle[index01].key]:handle[index01].methods[index02].name,
+                                    value:handle[index01].methods[index02].value,
+                                });
+                                if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                    resolve(returnedValues == [] ? undefined : returnedValues);
+                                }
+                            }
+                        }else if(handle[index01].methods[index02].type == "get" || handle[index01].methods[index02].type == "read"){
+                            storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name)
+                                .get(handle[index01].methods[index02].name).onsuccess = function(){
+                                    if(this.result == undefined){
+                                        returnedValues.push({type:"get",value:undefined});
+                                        if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                            resolve(returnedValues == [] ? undefined : returnedValues);
+                                        }
+                                    }else{
+                                        returnedValues.push({type:"get",value:this.result.value});
+                                        if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                            resolve(returnedValues == [] ? undefined : returnedValues);
+                                        }
+                                    }
+                            }
+                        }else if(handle[index01].methods[index02].type == "exist"){
+                            if(handle[index01].methods[index02].name == undefined){
+                                returnedValues.push({type:"existObject",value:storage.objectStoreNames.contains(handle[index01].name)});
+                                if(index01 == handle.length-1 && index02 == handle[index01].methods.length-1){
+                                    resolve(returnedValues == [] ? undefined : returnedValues);
+                                }
+                            }else{
+                                storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name)
+                                .get(handle[index01].methods[index02].name).onsuccess = function(){
+                                    if(this.result == undefined){
+                                        returnedValues.push({type:"existValue",value:false});
+                                        if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                            resolve(returnedValues == [] ? undefined : returnedValues);
+                                        }
+                                    }else{
+                                        returnedValues.push({type:"existValue",value:true});
+                                        if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                            resolve(returnedValues == [] ? undefined : returnedValues);
+                                        }
+                                    }
+                                };
+                            }
+                        }else if(handle[index01].methods[index02].type == "getAll" || handle[index01].methods[index02].type == "readAll"){
+                            storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name)
+                                .getAll().onsuccess = function(){
+                                    returnedValues.push({type:"getAll",value:this.result});
+                                    if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                        resolve(returnedValues == [] ? undefined : returnedValues);
+                                    }
+                            };
+                        }else if(handle[index01].methods[index02].type == "delete" || handle[index01].methods[index02].type == "remove"){
+                            storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).delete(handle[index01].methods[index02].name);
+                            resolve(returnedValues == [] ? undefined : returnedValues);
+                        }else if(handle[index01].methods[index02].type == "clear"){
+                            storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).clear();
+                            resolve(returnedValues == [] ? undefined : returnedValues);
+                        }else if(handle[index01].methods[index02].type == "count"){
+                            storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name)
+                                .count().onsuccess = function(){
+                                    returnedValues.push({type:"count",value:this.result});
+                                    if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                        resolve(returnedValues == [] ? undefined : returnedValues);
+                                    }
+                            };
+                        }
+                    }
+                }
+            }
+        });
+    }
+    this.existStorage = async function(name){
+        return (await window.indexedDB.databases()).map(storage => storage.name).includes(name);
+    }
+    this.deleteStorage = function(name){
+        indexedDB.deleteDatabase(name);
+    }
+}
