@@ -1,37 +1,52 @@
 # DataSave
 A simple library for handling indexedDB *(Not support for index and cursor)*
 
-## Create a Storage
+## Get the library
 ```
 var storage = new DataSave();
-var version = 1;
-
-storage.newStorage("storageName",version,[{   //onupgradeneeded
-  key:"id",          //Name of KeyPath
-  name:"texts",      //Name of ObjectStore
-  delete:false,      //If it is true the ObjectStore is deleted
-  increment:false,   //If it is true the ObjectStore is incremented
-}],[{                                         //onsuccess
-  name:"texts",      //Name of ObjectStore
-  methods:[{                //Function to ObjectStore
-    type:"add",             //Type of the function ["add","put","get","getAll","count","delete","clear"]
-    name:"text",           //Name of this item
-    value:"Helo world...",  //Value of this item
-  }],
-}]);
 ```
+
+## Create a new Storage
+```
+var version = 1;
+var name = "StorageName";
+
+storage.newStorage(name,version,
+  [{}], //Like onupgradeneeded
+  [{}], //Like onsuccess
+);
+```
+
+### newStorage functions
+
+#### onupgradeneeded
+- **key**: The name of keypath.
+- **delete**: if this is true the objectStore is deleted.
+- **increment**: if this is true the objectStore is incrementable.
+
+#### onsuccess
+- **name**: The name of objectStore.
+- **methods**: The methods of a objectStore.
+
+#### methods
+- **add** or **new**: Add a item to objectStore.
+- **put** or **update** or **edit** or **write**: Edit a item.
+- **get** or **read**: Get content of a item.
+- **getAll**: Get content of all items.
+- **delete** or **remove**: Delete a item.
+- **clear**: Delete all items.
+- **count**: Count the amount of items.
+- **exist**: Verify If item exist.
 
 ## Open a Storage
 ```
-storage.openStorage("storageName",[{          //onsuccess
-  name:"texts",      //Name of ObjectStore
-  key:"id",          //Name of KeyPath
-  methods:[{                //Function to ObjectStore
-    type:"add",             //Type of the function ["add","put","get","getAll","count","delete","clear"] 
-    name:"text",            //Name of this item
-    value:"Helo world...",  //Value of this item
-  }],
-}]);
+storage.openStorage("storageName",
+  [{}]
+); //Like on success - Methods above
+```
+## Verify if a Storage exists
+```
+storage.existStorage("storageName");
 ```
 
 ## Delete a Storage
