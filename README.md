@@ -44,16 +44,16 @@ storage.newStorage(name,version,
 
 ## Open a Storage
 ```
-storage.openStorage("storageName",
-  [{}]
-); //Like on success - Methods above
+storage.openStorage(name,
+  [{}] //Like on success - Methods above
+);
 ```
 ## Verify if a Storage exists
 ```
-storage.existStorage("storageName");
+storage.existStorage(name);
 ```
 
 ## Delete a Storage
 ```
-storage.deleteStorage("storageName");
+storage.deleteStorage(name);
 ```
