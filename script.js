@@ -103,10 +103,14 @@ var DataSave = function(){
                             };
                         }else if(handle[index01].methods[index02].type == "delete" || handle[index01].methods[index02].type == "remove"){
                             storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).delete(handle[index01].methods[index02].name);
-                            resolve(returnedValues == [] ? undefined : returnedValues);
+                            if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                resolve(returnedValues == [] ? undefined : returnedValues);
+                            }
                         }else if(handle[index01].methods[index02].type == "clear"){
                             storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).clear();
-                            resolve(returnedValues == [] ? undefined : returnedValues);
+                            if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                resolve(returnedValues == [] ? undefined : returnedValues);
+                            }
                         }else if(handle[index01].methods[index02].type == "count"){
                             storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name)
                                 .count().onsuccess = function(){
@@ -207,10 +211,14 @@ var DataSave = function(){
                             };
                         }else if(handle[index01].methods[index02].type == "delete" || handle[index01].methods[index02].type == "remove"){
                             storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).delete(handle[index01].methods[index02].name);
-                            resolve(returnedValues == [] ? undefined : returnedValues);
+                            if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                resolve(returnedValues == [] ? undefined : returnedValues);
+                            }
                         }else if(handle[index01].methods[index02].type == "clear"){
                             storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name).clear();
-                            resolve(returnedValues == [] ? undefined : returnedValues);
+                            if(index01 == handle.length && index02 == handle[index01-1].methods.length){
+                                resolve(returnedValues == [] ? undefined : returnedValues);
+                            }
                         }else if(handle[index01].methods[index02].type == "count"){
                             storage.transaction(handle[index01].name,"readwrite").objectStore(handle[index01].name)
                                 .count().onsuccess = function(){
