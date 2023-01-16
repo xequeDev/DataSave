@@ -38,6 +38,10 @@ storage.newStorage(name,version,
 - **count**: Count the amount of items.
 - **exist**: Verify If item exist.
 
+- **name**: Name of inserted/geted item.
+- **value**: Value of inserted item.
+- **key**: keypath of objectStore.
+
 ## Open a Storage
 ```
 storage.openStorage("storageName",
